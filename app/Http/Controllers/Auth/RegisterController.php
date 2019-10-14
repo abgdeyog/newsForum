@@ -51,7 +51,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:60', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -68,7 +68,18 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'api_token' => substr($data['email'], 0, strlen($data['email'])).Str::random(60 - strlen($data['email'])),
+            'api_token' => $this->generateApiTokenRecursion($api_token_length - strlen($data['email']),substr($data['email'], 0, strlen($data['email'])) ),
+//            'api_token' => substr($data['email'], 0, strlen($data['email'])).Str::random(60 - strlen($data['email'])),
         ]);
     }
+    private function generateApiTokenRecursion($length, $str)
+    {
+        if ($length <= 0) {
+            return $str.Str::random(1);
+        }else{
+            $str .= Str::random(1);
+            return $this->generateApiTokenRecursion($length - 1,$str);
+        }
+    }
+
 }

@@ -23,10 +23,12 @@ Route::middleware('auth:api')->get('createPost', 'PostController@create');
 Route::middleware('auth:api')->get('updatePost', 'PostController@update');
 Route::get('getPostById', 'PostController@getPostByPostId');
 
-
 Route::get('getAllComments', 'CommentController@index');
 Route::middleware('auth:api')->get('deleteComment', 'CommentController@delete');
 Route::middleware('auth:api')->get('createComment', 'CommentController@create');
 Route::middleware('auth:api')->get('updateComment', 'CommentController@update');
 Route::get('getCommentById', 'CommentController@getCommentByCommentId');
 Route::get('getCommentsByPostId', 'CommentController@getCommentsByPostId');
+
+Route::get('findUserIdByPostId', 'PostController@findUserIdByPostId');
+Route::get('getPostsJSON', 'PostController@getAllPostsJson');

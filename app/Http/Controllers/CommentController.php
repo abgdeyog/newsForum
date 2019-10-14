@@ -16,7 +16,7 @@ class CommentController extends Controller
     public function create(Request $request)
     {
         Comment::create([
-            'user_id' => User::where('api_token', $request['api_token'])->first()->value('id'),
+            'user_id' => User::where('api_token', $request->header('api_token'))->first()->value('id'),
             'post_id' => $request['post_id'],
             'text' => $request['text']
         ]);
