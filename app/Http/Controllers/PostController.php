@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Comment;
 use App\User;
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -18,14 +19,13 @@ class PostController extends Controller
     public function create(Request $request)
     {
         $post = Post::create([
-            'user_id' => User::where('api_token', $request['api_token'])->first()->value('id'),
+            'user_id' => User::where('api_token', $request['api_token'])->first()->id,
             'header' => $request['header'],
             'description' => $request['description']
         ]);
-        return $post;
     }
 
-    public function getAllPostsJson()
+    public function getAllPosts()
     {
         $posts = Post::all();
         $postsJSON = array();
@@ -36,10 +36,16 @@ class PostController extends Controller
             {
                 $commentsJSON[$comment->getAttribute('id')] = array('author' => $comment->author, 'text' => $comment->getAttribute('text'));
             }
-            $postsJSON[$post->getAttribute('id')] = array('author' => $post->author, 'comments' => $commentsJSON);
+            $postsJSON[$post->getAttribute('id')] = array('header' => $post->header, 'description' => $post->description,'author' => $post->author, 'comments' => $commentsJSON);
 
         }
         return $postsJSON;
+    }
+
+
+    public function getAllPostsWithComments(Request $request)
+    {
+
     }
 
     public function findUserIdByPostId(Request $request)
@@ -94,13 +100,13 @@ class PostController extends Controller
         return $post;
     }
 
+    public function checkPostPermission(Request $request)
+    {
+        return json_encode($this->hasPermission($request, Post::find($request['post_id'])));
+    }
+
     public function hasPermission(Request $request, Post $post)
     {
-        if($post['user_id'] == User::where('api_token', $request['api_token'])->first()->value('id'))
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return $post['user_id'] == User::where('api_token', $request['api_token'])->first()->id;
     }
 }

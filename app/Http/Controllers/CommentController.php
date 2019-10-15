@@ -16,11 +16,10 @@ class CommentController extends Controller
     public function create(Request $request)
     {
         Comment::create([
-            'user_id' => User::where('api_token', $request->header('api_token'))->first()->value('id'),
+            'user_id' => User::where('api_token', $request['api_token'])->first()->id,
             'post_id' => $request['post_id'],
             'text' => $request['text']
         ]);
-        return view('news');
     }
 
     public function delete(Request $request)
@@ -48,14 +47,20 @@ class CommentController extends Controller
         return $comment;
     }
 
+    public function checkCommentPermission(Request $request)
+    {
+        if ($this->hasPermission($request, Comment::find($request['comment_id'])))
+        {
+            $hasPermission = true;
+        } else {
+            $hasPermission = false;
+        }
+        return json_encode($hasPermission);
+    }
+
     public function hasPermission(Request $request, Comment $comment)
     {
-        if($comment['user_id'] == User::where('api_token', $request['api_token'])->first()->value('id'))
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return $comment['user_id'] == User::where('api_token', $request['api_token'])->first()->id;
     }
 
     public function getCommentsByPostId(Request $request)
@@ -63,4 +68,5 @@ class CommentController extends Controller
         $comments = Comment::where('post_id', $request['post_id'])->get();
         return $comments;
     }
+
 }

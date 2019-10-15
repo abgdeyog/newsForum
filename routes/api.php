@@ -17,11 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('getAllPosts', 'PostController@index');
+//Route::get('getAllPosts', 'PostController@index');
 Route::middleware('auth:api')->get('deletePost', 'PostController@delete');
 Route::middleware('auth:api')->get('createPost', 'PostController@create');
 Route::middleware('auth:api')->get('updatePost', 'PostController@update');
 Route::get('getPostById', 'PostController@getPostByPostId');
+Route::get('checkPostPermission', 'PostController@checkPostPermission');
 
 Route::get('getAllComments', 'CommentController@index');
 Route::middleware('auth:api')->get('deleteComment', 'CommentController@delete');
@@ -29,6 +30,8 @@ Route::middleware('auth:api')->get('createComment', 'CommentController@create');
 Route::middleware('auth:api')->get('updateComment', 'CommentController@update');
 Route::get('getCommentById', 'CommentController@getCommentByCommentId');
 Route::get('getCommentsByPostId', 'CommentController@getCommentsByPostId');
+Route::get('checkCommentPermission', 'CommentController@checkCommentPermission');
+
 
 Route::get('findUserIdByPostId', 'PostController@findUserIdByPostId');
-Route::get('getPostsJSON', 'PostController@getAllPostsJson');
+Route::get('getAllPosts', 'PostController@getAllPosts');
