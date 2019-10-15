@@ -73,6 +73,9 @@ class RegisterController extends Controller
 //            'api_token' => substr($data['email'], 0, strlen($data['email'])).Str::random(60 - strlen($data['email'])),
         ]);
     }
+
+    // to generate api token we use recursion
+
     private function generateApiTokenRecursion($length, $str)
     {
         if ($length <= 0) {

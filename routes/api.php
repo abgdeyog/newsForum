@@ -17,21 +17,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('getAllPosts', 'PostController@index');
-Route::middleware('auth:api')->get('deletePost', 'PostController@delete');
-Route::middleware('auth:api')->get('createPost', 'PostController@create');
-Route::middleware('auth:api')->get('updatePost', 'PostController@update');
-Route::get('getPostById', 'PostController@getPostByPostId');
-Route::get('checkPostPermission', 'PostController@checkPostPermission');
+Route::get('getPosts', 'PostController@index'); // no attributes
+Route::middleware('auth:api')->get('deletePost', 'PostController@delete'); // api_token, post_id
+Route::middleware('auth:api')->get('createPost', 'PostController@create'); // api_token, header, description
+Route::middleware('auth:api')->get('updatePost', 'PostController@update'); // api_token, header, description
+Route::get('getPostById', 'PostController@getPostByPostId'); // post_id
+Route::get('checkPostPermission', 'PostController@checkPostPermission'); // api_token, post_id
 
-Route::get('getAllComments', 'CommentController@index');
-Route::middleware('auth:api')->get('deleteComment', 'CommentController@delete');
-Route::middleware('auth:api')->get('createComment', 'CommentController@create');
-Route::middleware('auth:api')->get('updateComment', 'CommentController@update');
-Route::get('getCommentById', 'CommentController@getCommentByCommentId');
-Route::get('getCommentsByPostId', 'CommentController@getCommentsByPostId');
-Route::get('checkCommentPermission', 'CommentController@checkCommentPermission');
+Route::get('getAllComments', 'CommentController@index'); // no attributes
+Route::middleware('auth:api')->get('deleteComment', 'CommentController@delete'); // api_token, comment_id
+Route::middleware('auth:api')->get('createComment', 'CommentController@create'); // api_token, text
+Route::middleware('auth:api')->get('updateComment', 'CommentController@update'); // api_token, text
+Route::get('getCommentById', 'CommentController@getCommentByCommentId'); // comment_id
+Route::get('getCommentsByPostId', 'CommentController@getCommentsByPostId'); // post_id
+Route::get('checkCommentPermission', 'CommentController@checkCommentPermission'); // api_token, comment_id
 
 
-Route::get('findUserIdByPostId', 'PostController@findUserIdByPostId');
-Route::get('getAllPosts', 'PostController@getAllPosts');
+Route::get('findUserIdByPostId', 'PostController@findUserIdByPostId'); /* find user_id with BSA by post_id,
+ requires user_id and post_id attributes */
+Route::get('getAllPosts', 'PostController@getAllPosts'); /* no attributes, here are implemented nested loops,
+ and 2 dimensional array */

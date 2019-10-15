@@ -25,6 +25,9 @@ class PostController extends Controller
         ]);
     }
 
+
+    // nested loops
+    // 2 dimensional array
     public function getAllPosts()
     {
         $posts = Post::all();
