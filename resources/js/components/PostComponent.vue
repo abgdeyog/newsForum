@@ -44,7 +44,6 @@
                 posts: {}
             };
         },
-//http://18.223.32.255/newsForum/public/
         methods: {
             init() {
                 try {
