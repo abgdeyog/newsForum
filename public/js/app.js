@@ -1960,13 +1960,12 @@ __webpack_require__.r(__webpack_exports__);
       posts: {}
     };
   },
-  //http://18.223.32.255/newsForum/public/
   methods: {
     init: function init() {
       var _this = this;
 
       try {
-        fetch('http://localhost:8000/api/getAllPosts').then(function (ans) {
+        fetch('http://3.15.179.2/newsForum/public/api/getAllPosts').then(function (ans) {
           ans.json().then(function (posts) {
             _this.posts = posts;
           });
