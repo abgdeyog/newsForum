@@ -1,8 +1,9 @@
 <template>
-    <div class="container">
+    <div>
+    <div class="container" v-for="post in posts" :key="post.id">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card" v-for="post in posts" :key="post.id">
+            <div class="col-md-10" >
+                <div class="card">
                     <div class="card-header">
                         {{post.header}}
                         <br>
@@ -16,13 +17,18 @@
 
                     <div class="card">
                         <div class="card-body">
-                        <CommentComponent v-for="(comment,id) in post.comments" :key="id" :userName="comment.author.name" :text="comment.text">
-                        </CommentComponent>
+                            <div v-for="(comment,id) in post.comments" :key="id">
+                                <CommentComponent userName="comment.author.name" :text="comment.text">
+                                </CommentComponent>
+                                <br>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
+    </div>
     </div>
 </template>
 
