@@ -53,6 +53,7 @@
                         })
                     })
                 } catch(e) {
+                    console.warn("can not fetch api");
                     console.warn(e)
                 }
             },
