@@ -1951,9 +1951,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     CommentComponent: _CommentComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: {
-    user: Object
-  },
+  props: {},
   data: function data() {
     return {
       posts: {}
