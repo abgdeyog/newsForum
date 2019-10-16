@@ -3,13 +3,23 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card" v-for="post in posts" :key="post.id">
-                    <div class="card-header">{{post.header}}</div>
+                    <div class="card-header">
+                        {{post.header}}
+                        <br>
+                        <div class="right">
+                            {{post.author.name}}
+                        </div>
+                    </div>
                     <div class="card-body">
                         {{post.description}}
                     </div>
-                    <h2> Comments </h2>
-                    <CommentComponent v-for="(comment,id) in post.comments" :key="id" :userName="comment.author.name" :text="comment.text">
-                    </CommentComponent>
+
+                    <div class="card">
+                        <div class="card-body">
+                        <CommentComponent v-for="(comment,id) in post.comments" :key="id" :userName="comment.author.name" :text="comment.text">
+                        </CommentComponent>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,8 +35,8 @@
             CommentComponent,
         },
         props: {
-          header: String,
-          description: String,
+            author: String,
+            header: String
         },
 
         data() {
@@ -34,7 +44,7 @@
                 posts: {}
             };
         },
-
+//http://18.223.32.255/newsForum/public/
         methods: {
             init() {
                 try {
@@ -56,5 +66,8 @@
 </script>
 
 <style scoped>
-
+    .right {
+        float: right;
+        color: rgba(0, 0, 0, 0.5);
+    }
 </style>
