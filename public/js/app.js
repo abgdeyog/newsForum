@@ -1952,8 +1952,7 @@ __webpack_require__.r(__webpack_exports__);
     CommentComponent: _CommentComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
-    author: String,
-    header: String
+    user: Object
   },
   data: function data() {
     return {
@@ -1965,12 +1964,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       try {
-        fetch('http://3.15.179.2/newsForum/public/api/getAllPosts').then(function (ans) {
+        fetch('http://localhost:8000/api/getAllPosts').then(function (ans) {
           ans.json().then(function (posts) {
             _this.posts = posts;
           });
         });
       } catch (e) {
+        console.warn("can not fetch api");
         console.warn(e);
       }
     }

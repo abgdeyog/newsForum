@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <post-component header="test" description="test description"></post-component>
+                <post-component user={{auth()->user()}} ></post-component>
                             {{--@php--}}
                                 {{--$tmp = auth()->user();--}}
                             {{--@endphp--}}

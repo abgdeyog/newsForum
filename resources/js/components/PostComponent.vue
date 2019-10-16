@@ -35,8 +35,6 @@
             CommentComponent,
         },
         props: {
-            author: String,
-            header: String
         },
 
         data() {
