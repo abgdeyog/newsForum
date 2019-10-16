@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div v-for="(comment,id) in post.comments" :key="id">
-                                <CommentComponent userName="comment.author.name" :text="comment.text">
+                                <CommentComponent :userName="comment.author.name" :text="comment.text">
                                 </CommentComponent>
                                 <br>
                             </div>
