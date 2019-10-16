@@ -46,7 +46,7 @@
         methods: {
             init() {
                 try {
-                    fetch('http://localhost:8000/api/getAllPosts').then(ans => {
+                    fetch('http://3.15.179.2/newsForum/public/api/getAllPosts').then(ans => {
                         ans.json().then(posts => {
                             this.posts = posts;
                         })
